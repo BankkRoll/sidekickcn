@@ -1,5 +1,8 @@
 # sidekick/cn - Modular AI Assistant for Next.js
 
+<img width="2197" height="2815" alt="image" src="https://github.com/user-attachments/assets/cc44f900-323b-4b48-b991-842d42656310" />
+
+
 A fully composable AI assistant built with ShadCN UI and the Vercel AI SDK. Drop it into any Next.js or React project with full customization.
 
 ## Features
