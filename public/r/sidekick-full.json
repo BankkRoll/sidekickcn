@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidekick-full",
+  "type": "registry:block",
+  "title": "Complete sidekick/cn",
+  "description": "Full sidekick/cn with all layouts (floating, sidebar, panel), AI elements, and  features",
+  "registryDependencies": [
+    "sidekick-config",
+    "use-sidekick",
+    "sidekick-provider",
+    "ai-elements-full",
+    "sidekick-ui",
+    "sidekick-header",
+    "sidekick-chat",
+    "sidekick-floating",
+    "sidekick-sidebar",
+    "sidekick-tasks",
+    "sidekick-floating-bar",
+    "sidekick-ai-route"
+  ],
+  "files": [
+    {
+      "path": "src/components/sidekick/index.tsx",
+      "content": "export { SidekickChat } from \"./sidekick-chat\";\nexport { SidekickFloating } from \"./sidekick-floating\";\nexport { SidekickFloatingBar } from \"./sidekick-floating-bar\";\nexport { SidekickHeader } from \"./sidekick-header\";\nexport { SidekickProvider, useSidekick } from \"./sidekick-provider\";\nexport { SidekickSidebar } from \"./sidekick-sidebar\";\nexport { SidekickTasks } from \"./sidekick-tasks\";\nexport { SidekickUI } from \"./sidekick-ui\";\n",
+      "type": "registry:component"
+    }
+  ]
+}

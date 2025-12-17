@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidekick-provider",
+  "type": "registry:component",
+  "title": "sidekick/cn Provider",
+  "description": "Context provider for sidekick/cn with AI Gateway integration, workflow management, and composable architecture",
+  "dependencies": [],
+  "registryDependencies": [
+    "sidekick-config",
+    "use-sidekick"
+  ],
+  "files": [
+    {
+      "path": "src/components/sidekick/sidekick-provider.tsx",
+      "content": "\"use client\";\n\nimport { SidekickContext, createSidekickContext } from \"@/hooks/use-sidekick\";\nimport {\n  DEFAULT_SIDEKICK_CONFIG,\n  DEFAULT_WORKFLOWS,\n  type SidekickConfig,\n  type WorkflowDefinition,\n} from \"@/lib/sidekick-config\";\nimport * as React from \"react\";\nimport { SidekickSidebar } from \"./sidekick-sidebar\";\n\ntype Message = {\n  id: string;\n  role: \"user\" | \"assistant\";\n  content: string;\n  timestamp?: Date;\n  sources?: { title: string; href: string }[];\n  reasoning?: { content: string; duration: number };\n  versions?: { id: string; content: string }[];\n};\n\nexport interface SidekickProviderProps {\n  children: React.ReactNode;\n  config?: Partial<SidekickConfig>;\n  workflows?: WorkflowDefinition[];\n  enableSidebar?: boolean;\n  sidebarPosition?: \"left\" | \"right\";\n  sidebarWidth?: number | string;\n  sidebarDefaultOpen?: boolean;\n}\n\nexport function SidekickProvider({\n  children,\n  config = {},\n  workflows = DEFAULT_WORKFLOWS,\n  enableSidebar = false,\n  sidebarPosition = \"right\",\n  sidebarWidth = 420,\n  sidebarDefaultOpen = false,\n}: SidekickProviderProps) {\n  const mergedConfig: SidekickConfig = React.useMemo(\n    () => ({\n      ...DEFAULT_SIDEKICK_CONFIG,\n      ...config,\n    }),\n    [config],\n  );\n\n  // Use the createSidekickContext function from the hook\n  const contextValue = createSidekickContext(mergedConfig, workflows);\n\n  if (enableSidebar) {\n    return (\n      <SidekickContext.Provider value={contextValue}>\n        <SidekickSidebar\n          defaultOpen={sidebarDefaultOpen}\n          position={sidebarPosition}\n          width={sidebarWidth}\n        >\n          {children}\n        </SidekickSidebar>\n      </SidekickContext.Provider>\n    );\n  }\n\n  return (\n    <SidekickContext.Provider value={contextValue}>\n      {children}\n    </SidekickContext.Provider>\n  );\n}\n\nexport { useSidekick } from \"@/hooks/use-sidekick\";\n",
+      "type": "registry:component"
+    }
+  ]
+}

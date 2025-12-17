@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-elements-reasoning",
+  "type": "registry:component",
+  "title": "AI Reasoning Elements",
+  "description": "Collapsible reasoning display with duration tracking",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "collapsible"
+  ],
+  "files": [
+    {
+      "path": "src/components/ai-elements/reasoning.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { BrainIcon, ClockIcon } from \"lucide-react\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\ntype ReasoningProps = {\n  duration?: number;\n  children: React.ReactNode;\n  className?: string;\n};\n\nexport function Reasoning({ duration, children, className }: ReasoningProps) {\n  return (\n    <Collapsible className={cn(\"mb-2\", className)}>\n      {React.Children.map(children, (child) =>\n        React.isValidElement(child)\n          ? React.cloneElement(\n              child as React.ReactElement<{ duration?: number }>,\n              {\n                duration,\n              },\n            )\n          : child,\n      )}\n    </Collapsible>\n  );\n}\n\ntype ReasoningTriggerProps = {\n  duration?: number;\n};\n\nexport function ReasoningTrigger({ duration }: ReasoningTriggerProps) {\n  return (\n    <CollapsibleTrigger asChild>\n      <button className=\"flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors\">\n        <BrainIcon className=\"h-4 w-4\" />\n        <span>View reasoning</span>\n        {duration && (\n          <span className=\"flex items-center gap-1 text-xs\">\n            <ClockIcon className=\"h-3 w-3\" />\n            {duration}s\n          </span>\n        )}\n      </button>\n    </CollapsibleTrigger>\n  );\n}\n\ntype ReasoningContentProps = {\n  children: React.ReactNode;\n};\n\nexport function ReasoningContent({ children }: ReasoningContentProps) {\n  return (\n    <CollapsibleContent className=\"mt-2\">\n      <div className=\"rounded-md border bg-muted/30 p-3 text-sm text-muted-foreground\">\n        {children}\n      </div>\n    </CollapsibleContent>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}

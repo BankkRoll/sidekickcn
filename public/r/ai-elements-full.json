@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-elements-full",
+  "type": "registry:block",
+  "title": "All AI Elements",
+  "description": "Complete set of AI element components",
+  "registryDependencies": [
+    "ai-elements-message",
+    "ai-elements-conversation",
+    "ai-elements-sources",
+    "ai-elements-reasoning",
+    "ai-elements-suggestion",
+    "ai-elements-prompt-input",
+    "ai-elements-model-selector",
+    "ai-elements-shimmer"
+  ],
+  "files": [
+    {
+      "path": "src/components/ai-elements/index.tsx",
+      "content": "export {\n  Message,\n  MessageBranch,\n  MessageBranchContent,\n  MessageBranchNext,\n  MessageBranchPage,\n  MessageBranchPrevious,\n  MessageBranchSelector,\n  MessageContent,\n  MessageResponse,\n} from \"./message\";\n\nexport {\n  Conversation,\n  ConversationContent,\n  ConversationScrollButton,\n} from \"./conversation\";\n\nexport { Source, Sources, SourcesContent, SourcesTrigger } from \"./sources\";\n\nexport { Reasoning, ReasoningContent, ReasoningTrigger } from \"./reasoning\";\n\nexport { Suggestion, Suggestions } from \"./suggestion\";\n\nexport {\n  PromptInput,\n  PromptInputActionAddAttachments,\n  PromptInputActionMenu,\n  PromptInputActionMenuContent,\n  PromptInputActionMenuTrigger,\n  PromptInputAttachment,\n  PromptInputAttachments,\n  PromptInputBody,\n  PromptInputButton,\n  PromptInputFooter,\n  PromptInputHeader,\n  PromptInputSubmit,\n  PromptInputTextarea,\n  PromptInputTools,\n  type PromptInputMessage,\n} from \"./prompt-input\";\n\nexport {\n  CompoundModelSelector,\n  isModelAllowed,\n  ModelSelector,\n  ModelSelectorContent,\n  ModelSelectorEmpty,\n  ModelSelectorGroup,\n  ModelSelectorInput,\n  ModelSelectorItem,\n  ModelSelectorList,\n  ModelSelectorLogo,\n  ModelSelectorLogoGroup,\n  ModelSelectorName,\n  ModelSelectorTrigger,\n  resolveAllowedModels,\n  type ModelOption,\n} from \"./model-selector\";\n\nexport { Shimmer, ShimmerLines } from \"./shimmer\";\n",
+      "type": "registry:component"
+    }
+  ]
+}

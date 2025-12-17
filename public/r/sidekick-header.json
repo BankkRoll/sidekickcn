@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidekick-header",
+  "type": "registry:component",
+  "title": "sidekick/cn Header",
+  "description": "Header with title, subtitle, and status indicator",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "src/components/sidekick/sidekick-header.tsx",
+      "content": "\"use client\";\nimport { cn } from \"@/lib/utils\";\nimport { Sparkles } from \"lucide-react\";\n\nexport interface SidekickHeaderProps {\n  title?: string;\n  subtitle?: string;\n  className?: string;\n}\n\nexport function SidekickHeader({\n  title = \"sidekick/cn AI\",\n  subtitle = \"Your intelligent assistant\",\n  className,\n}: SidekickHeaderProps) {\n  return (\n    <div\n      className={cn(\n        \"flex items-center gap-3 border-b border-border pb-4\",\n        className,\n      )}\n    >\n      <div className=\"flex size-10 items-center justify-center rounded-lg bg-primary/10\">\n        <Sparkles className=\"size-5 text-primary\" />\n      </div>\n      <div className=\"flex-1\">\n        <h2 className=\"text-balance text-lg font-semibold leading-tight\">\n          {title}\n        </h2>\n        {subtitle && (\n          <p className=\"text-sm text-muted-foreground\">{subtitle}</p>\n        )}\n      </div>\n      <div className=\"flex items-center gap-2\">\n        <div className=\"size-2 animate-pulse rounded-full bg-primary\" />\n        <span className=\"text-xs text-muted-foreground\">Active</span>\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}

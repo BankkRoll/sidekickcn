@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-elements-suggestion",
+  "type": "registry:component",
+  "title": "AI Suggestion Elements",
+  "description": "Clickable suggestion chips for quick prompts",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "src/components/ai-elements/suggestion.tsx",
+      "content": "\"use client\";\n\nimport type * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { LightbulbIcon } from \"lucide-react\";\n\ntype SuggestionsProps = {\n  children: React.ReactNode;\n  className?: string;\n};\n\nexport function Suggestions({ children, className }: SuggestionsProps) {\n  return (\n    <div className={cn(\"flex flex-wrap gap-2\", className)}>{children}</div>\n  );\n}\n\ntype SuggestionProps = {\n  suggestion: string;\n  onClick?: (suggestion: string) => void;\n  className?: string;\n};\n\nexport function Suggestion({\n  suggestion,\n  onClick,\n  className,\n}: SuggestionProps) {\n  return (\n    <button\n      onClick={() => onClick?.(suggestion)}\n      className={cn(\n        \"inline-flex items-center gap-2 rounded-full border bg-background px-4 py-2 text-sm hover:bg-muted/50 transition-colors\",\n        className,\n      )}\n    >\n      <LightbulbIcon className=\"h-3 w-3\" />\n      <span>{suggestion}</span>\n    </button>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-elements-sources",
+  "type": "registry:component",
+  "title": "AI Sources Elements",
+  "description": "Collapsible source citations with links",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "collapsible"
+  ],
+  "files": [
+    {
+      "path": "src/components/ai-elements/sources.tsx",
+      "content": "\"use client\";\n\nimport type * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { BookOpenIcon, ExternalLinkIcon } from \"lucide-react\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\ntype SourcesProps = {\n  children: React.ReactNode;\n  className?: string;\n};\n\nexport function Sources({ children, className }: SourcesProps) {\n  return (\n    <Collapsible className={cn(\"mb-2\", className)}>{children}</Collapsible>\n  );\n}\n\ntype SourcesTriggerProps = {\n  count: number;\n};\n\nexport function SourcesTrigger({ count }: SourcesTriggerProps) {\n  return (\n    <CollapsibleTrigger asChild>\n      <button className=\"flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors\">\n        <BookOpenIcon className=\"h-4 w-4\" />\n        <span>\n          {count} {count === 1 ? \"source\" : \"sources\"}\n        </span>\n      </button>\n    </CollapsibleTrigger>\n  );\n}\n\ntype SourcesContentProps = {\n  children: React.ReactNode;\n};\n\nexport function SourcesContent({ children }: SourcesContentProps) {\n  return (\n    <CollapsibleContent className=\"mt-2 space-y-2\">\n      {children}\n    </CollapsibleContent>\n  );\n}\n\ntype SourceProps = {\n  title: string;\n  href: string;\n};\n\nexport function Source({ title, href }: SourceProps) {\n  return (\n    <a\n      href={href}\n      target=\"_blank\"\n      rel=\"noopener noreferrer\"\n      className=\"flex items-start gap-2 rounded-md border p-3 text-sm hover:bg-muted/50 transition-colors\"\n    >\n      <ExternalLinkIcon className=\"h-4 w-4 shrink-0 mt-0.5\" />\n      <span className=\"flex-1 break-words\">{title}</span>\n    </a>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidekick-floating-bar",
+  "type": "registry:component",
+  "title": "sidekick/cn Floating Bar",
+  "description": "Floating trigger button with customizable positioning",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "src/components/sidekick/sidekick-floating-bar.tsx",
+      "content": "\"use client\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\nimport { MessageSquareIcon } from \"lucide-react\";\nimport type * as React from \"react\";\n\ntype SidekickFloatingBarProps = {\n  position?: \"bottom-right\" | \"bottom-left\" | \"top-right\" | \"top-left\";\n  onClick?: () => void;\n  as?: React.ComponentType<any>;\n  className?: string;\n};\n\nexport function SidekickFloatingBar({\n  position = \"bottom-right\",\n  onClick,\n  as: CustomComponent,\n  className,\n}: SidekickFloatingBarProps) {\n  const positionClasses = {\n    \"bottom-right\": \"bottom-4 right-4\",\n    \"bottom-left\": \"bottom-4 left-4\",\n    \"top-right\": \"top-4 right-4\",\n    \"top-left\": \"top-4 left-4\",\n  };\n\n  if (CustomComponent) {\n    return <CustomComponent onClick={onClick} />;\n  }\n\n  return (\n    <div className={cn(\"fixed z-50\", positionClasses[position], className)}>\n      <Button\n        size=\"lg\"\n        className=\"h-14 w-14 rounded-full shadow-lg\"\n        onClick={onClick}\n      >\n        <MessageSquareIcon className=\"h-6 w-6\" />\n        <span className=\"sr-only\">Open sidekick/cn</span>\n      </Button>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}

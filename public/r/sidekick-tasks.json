@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidekick-tasks",
+  "type": "registry:component",
+  "title": "sidekick/cn Tasks",
+  "description": "Workflow execution with status tracking and customization",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "badge",
+    "sidekick-provider"
+  ],
+  "files": [
+    {
+      "path": "src/components/sidekick/sidekick-tasks.tsx",
+      "content": "\"use client\";\n\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport type { WorkflowDefinition } from \"@/lib/sidekick-config\";\nimport { cn } from \"@/lib/utils\";\nimport { CheckCircle2, Circle, Play } from \"lucide-react\";\nimport * as React from \"react\";\nimport { useSidekick } from \"./sidekick-provider\";\n\nexport interface SidekickTasksProps {\n  className?: string;\n  workflows?: WorkflowDefinition[];\n  as?: React.ComponentType<any>;\n}\n\ntype TaskStatus = \"pending\" | \"running\" | \"completed\";\n\ntype Task = {\n  id: string;\n  name: string;\n  description: string;\n  status: TaskStatus;\n};\n\nexport function SidekickTasks({\n  className,\n  workflows: customWorkflows,\n  as: CustomComponent,\n}: SidekickTasksProps) {\n  const { triggerWorkflow, workflows } = useSidekick();\n  const workflowList = customWorkflows || workflows;\n  const [tasks, setTasks] = React.useState<Task[]>(\n    workflowList.map((w) => ({\n      id: w.id,\n      name: w.name,\n      description: w.description,\n      status: \"pending\" as const,\n    })),\n  );\n\n  const handleRunTask = React.useCallback(\n    async (taskId: string) => {\n      setTasks((prev) =>\n        prev.map((task) =>\n          task.id === taskId ? { ...task, status: \"running\" as const } : task,\n        ),\n      );\n\n      try {\n        await triggerWorkflow(taskId, {});\n        setTimeout(() => {\n          setTasks((prev) =>\n            prev.map((t) =>\n              t.id === taskId ? { ...t, status: \"completed\" as const } : t,\n            ),\n          );\n        }, 2000);\n      } catch (error) {\n        console.error(\"Task execution error:\", error);\n        setTasks((prev) =>\n          prev.map((t) =>\n            t.id === taskId ? { ...t, status: \"pending\" as const } : t,\n          ),\n        );\n      }\n    },\n    [triggerWorkflow],\n  );\n\n  if (CustomComponent) {\n    return <CustomComponent tasks={tasks} onRunTask={handleRunTask} />;\n  }\n\n  return (\n    <div className={cn(\"flex flex-col gap-3\", className)}>\n      <h3 className=\"text-sm font-medium\">Workflows</h3>\n      <div className=\"flex flex-col gap-2\">\n        {tasks.map((task) => (\n          <div\n            key={task.id}\n            className=\"flex items-center gap-3 rounded-lg border bg-card p-3 transition-colors hover:bg-accent\"\n          >\n            <div className=\"flex-1\">\n              <div className=\"flex items-center gap-2\">\n                <h4 className=\"text-sm font-medium\">{task.name}</h4>\n                <Badge\n                  variant={\n                    task.status === \"completed\"\n                      ? \"default\"\n                      : task.status === \"running\"\n                        ? \"secondary\"\n                        : \"outline\"\n                  }\n                  className=\"text-xs\"\n                >\n                  {task.status}\n                </Badge>\n              </div>\n              <p className=\"text-xs text-muted-foreground\">\n                {task.description}\n              </p>\n            </div>\n            {task.status === \"completed\" ? (\n              <CheckCircle2 className=\"h-5 w-5 text-primary\" />\n            ) : task.status === \"running\" ? (\n              <Circle className=\"h-5 w-5 animate-pulse text-blue-500\" />\n            ) : (\n              <Button\n                size=\"sm\"\n                variant=\"ghost\"\n                onClick={() => handleRunTask(task.id)}\n              >\n                <Play className=\"h-4 w-4\" />\n              </Button>\n            )}\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ]
+}
